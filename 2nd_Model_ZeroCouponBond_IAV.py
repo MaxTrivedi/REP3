@@ -4,7 +4,7 @@ from scipy.integrate import odeint
 
 
 Par_Value = 1000
-Capital_Increase = 100
+Capital_Increase = 0
 Bond_Duration = 10000
 Bond_Interest = 0.04
 i = 0.0321
@@ -39,26 +39,27 @@ y = odeint(model, y0, t)
 y2 = odeint(modelIAV, y0, t)
 
 # plot results
-plt.xlim((0,10))
-plt.ylim((0,3000))
+plt.xlim((0,11))
+plt.ylim((0,1600))
 
 plt.plot(t,y, label ='Not Inflation Adjusted')
 plt.plot(t,y2, label = 'Inflation Adjusted')
 
 plt.legend(loc='lower right')
 
-plt.xlabel('time')
-plt.ylabel('y(t)')
+plt.xlabel('Years')
+plt.ylabel('Bond Price (GBP)')
 x = np.linspace(0,10,100)
 
-h1 = plt.hlines(y = 2720, xmin = 0, xmax= 10, linestyles = ':')
-v1 = plt.vlines(x = 10, ymin = 0, ymax = 2720,linestyles = ':')
+h1 = plt.hlines(y = y[-1], xmin = 0, xmax= 10, linestyles = ':')
+v1 = plt.vlines(x = 10, ymin = 0, ymax = y[-1],linestyles = ':')
 
-h2 = plt.hlines(y = 2115, xmin = 0, xmax= 10, linestyles = ':')
+h2 = plt.hlines(y = y2[-1], xmin = 0, xmax= 10, linestyles = ':')
 
+plt.text(-1.6, y[-1], 'Par Value')
+plt.text(9.5, -200, 'Maturity')
 
-
-plt.plot(x, y, 'b', label = 'y=')
+plt.plot(x, y, 'C0', label = 'y=')
 plt.grid()
 plt.show()
 
